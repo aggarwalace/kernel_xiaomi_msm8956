@@ -446,10 +446,9 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
 
-	if (!enable_ipa_ws && !strncmp(ws->name, "IPA_WS", 6)) {
-		if (ws->active)
-			wakeup_source_deactivate(ws);
-
+	if ((!enable_qcom_rx_wakelock_ws && !strncmp(ws->name, "qcom_rx_wakelock", 16)) ||
+			(!enable_timerfd_ws && !strncmp(ws->name, "[timerfd]", 9)) ||
+			(!enable_netlink_ws && !strncmp(ws->name, "NETLINK", 7))) {
 		return;
 	}
 
